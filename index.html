@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalho de Química</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <div class="corpoJogo" id="tela">
+            
+            <button type="button" class="btn" onclick="ExibeJogo()" >Iniciar Jogo</button>
+            <button type="button" class="btn" onclick="ExibeExplicacao()">O que são grupos funcionais?</button>
+            
+         <div class="game-container" id="game-container" style="display:none;">
+
+            <!-- Moléculas -->
+            <div class="molecule ester droppable funcion1">
+                <div class="image-overlay droppable"></div>
+                <img src="ester.png" class="imagem droppable" alt="Minha Figura">
+                <!--imagem ester-->
+            </div>
+
+            <div class="molecule amida droppable funcion2">
+                <div class="image-overlay droppable"></div>
+                <img src="amida.png" class="imagem droppable" alt="Minha Figura">
+                <!-- Imagem de amida -->
+            </div>
+
+            <div class="molecule eter droppable funcion3">
+                <div class="image-overlay droppable"></div>
+                <img src="eter.png" class="imagem droppable" alt="Minha Figura">
+                <!-- Imagem de eter -->
+            </div>
+            
+            <div class="molecule alcool droppable funcion4">
+                <div class="image-overlay droppable"></div>
+                <img src="alcool.png" class="imagem droppable" alt="Minha Figura">
+                <!--imagem de alcool-->
+            </div>
+
+            <div class="molecule amino droppable funcion5">
+                <div class="image-overlay droppable"></div>
+                <img src="amino.png" class="imagem droppable" alt="Minha Figura">
+                <!-- Imagem de amino -->
+            </div>
+
+            <div class="molecule cetona droppable funcion6">
+                <div class="image-overlay droppable"></div>
+                <img src="cetona.png" class="imagem droppable" alt="Minha Figura">
+                <!-- Imagem de cetona -->
+            </div>
+
+            <div class="molecule aldeido droppable funcion7">
+                <div class="image-overlay droppable"></div>
+                <img src="aldeido.png" class="imagem droppable" alt="Minha Figura">
+                <!-- imagem de aldeido -->
+            </div>
+
+            <div class="molecule aciCarbox droppable funcion8">
+                <div class="image-overlay droppable"></div>
+                <img src="aciCarbox.png" class="imagem droppable" alt="Minha Figura">
+                <!-- Imagem de acidos carboxilicos -->
+            </div>
+
+            <div class="molecule anidritoAcetico droppable funcion9">
+                <div class="image-overlay droppable"></div>
+                <img src=" anidritoAcetico.png" class="imagem droppable" alt="Minha Figura">
+                <!-- imagem de anidritoAcetico -->
+            </div>
+
+            <div class="molecule aciMetano droppable funcion10">
+                <div class="image-overlay droppable"></div>
+                <img src="aciMetano.png" class="imagem droppable" alt="Minha Figura">
+                <!-- Imagem de acidoMetano  -->
+            </div>
+
+                
+
+            <!-- Grupos Funcionais -->
+            <div class="functional-group" draggable="true" id="funcion1">-COOR-<br/>ester</div>
+            <div class="functional-group" draggable="true" id="funcion2">-CONH2-<br/>amida</div>
+            <div class="functional-group" draggable="true" id="funcion3">-C(=O)OR-<br/>eter</div>
+            <div class="functional-group" draggable="true" id="funcion4">-OH-<br/>alcool</div>
+            <div class="functional-group" draggable="true" id="funcion5">-NH2-<br/>amino</div>
+            <div class="functional-group" draggable="true" id="funcion6">-C(=O)--<br/>cetona</div>
+            <div class="functional-group" draggable="true" id="funcion7">-CHO-<br/>aldeido</div>
+            <div class="functional-group" draggable="true" id="funcion8">-COOH-<br/>acido Carcoxilico</div> 
+            <div class="functional-group" draggable="true" id="funcion9">-O(CO)O--<br/>anidrito Acetico</div>
+            
+
+            <button id="skipButton">Proxima Partida</button>
+            <button id="reset-button">Reiniciar Jogo</button>
+        
+        </div>
+
+        
+    </div>
+
+
+
+    
+    <script src="script.js"></script>
+</body>
+</html>
