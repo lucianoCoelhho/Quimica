@@ -83,9 +83,7 @@ function ProximaExplicacao(paragrafo, j){
                 var proximo = document.createTextNode('Iniciar Jogo');
                 botoes.appendChild(proximo)
                 botoes.className = 'btn'
-                botoes.addEventListener("click", function(){
-                    alert('top');
-                })
+                botoes.addEventListener("click", skipRound)
                 tela.appendChild(botoes)
             }else
             {
