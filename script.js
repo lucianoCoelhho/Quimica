@@ -48,7 +48,6 @@ function ExibeExplicacao(repeticao = false){
         botoes[i].style.display = 'none';
     }
 
-    debugger
     var paragrafo = document.createElement('p');
     var texto = document.createTextNode(acidoCarboxilico);
     paragrafo.appendChild(texto)
@@ -74,9 +73,14 @@ function ProximaExplicacao(paragrafo, j){
     {
         debugger
         document.getElementById('tela').innerText = ''
+        var divGameContainer = document.createElement('div');
+        divGameContainer.className = 'game-container';
+        divGameContainer.id = 'game-container';
+        divGameContainer.style.display = 'none';
         for(var k = 0;k < 2; k++)
         {
-            var tela = document.getElementById('tela');
+            var divImagens = document.getElementById('divImagem');
+            divImagens.appendChild(divGameContainer);
             var botoes = document.createElement('button')            
             if(k == 0)
             {
@@ -102,7 +106,7 @@ function ProximaExplicacao(paragrafo, j){
 
 
 function ExibeJogo(){
-    
+    debugger
     var botoes = document.getElementsByClassName('btn');
     for(var i = 0; i < botoes.length; i++){
         botoes[i].style.display = 'none';
