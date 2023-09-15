@@ -149,6 +149,7 @@ button:hover {
     margin: 59px;
     cursor: pointer;
     float:left;
+    display: block;
 }
 
 

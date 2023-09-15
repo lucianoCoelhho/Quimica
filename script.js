@@ -1,12 +1,12 @@
-var acidoCarboxilico = 'Ácido Carboxílico: ' +
+var acidoCarboxilico = 'Ýcido Carboxílico: ' +
 'Os ácidos carboxílicos são compostos orgânicos que contêm o grupo funcional carboxila (-COOH).' +
 'São conhecidos por sua acidez e podem formar ligações de hidrogênio, tornando-os importantes em bioquímica.';
 
-var acidoMetano = 'Ácido Metanóico (Fórmico): ' +
+var acidoMetano = 'Ýcido Metanóico (Fórmico): ' +
 'O ácido metanóico, também chamado de ácido fórmico, é o ácido carboxílico mais simples, com a fórmula HCOOH.' +
 'É encontrado em picadas de formigas e pode ser usado na produção de produtos químicos industriais.';
 
-var alcool = 'Álcool: ' +
+var alcool = 'Ýlcool: ' +
 'Os álcoois são compostos que possuem o grupo funcional hidroxila (-OH).' +
 'São amplamente utilizados em produtos de consumo, como bebidas alcoólicas e produtos farmacêuticos.';
 
@@ -30,14 +30,16 @@ var cetona = 'Cetona: ' +
 'As cetonas são compostos que possuem o grupo funcional cetona (C=O) ligado a um átomo de carbono.' +
 'Muitas cetonas são usadas como solventes e na produção de resinas.';
 
-var ester = 'Éster: ' +
+var ester = '�ster: ' +
 'Os ésteres são compostos com o grupo funcional éster (-COO-).' +
 'Eles são responsáveis pelos sabores e aromas em muitos alimentos e também são usados ​​em perfumaria.';
 
-var eter = 'Éter: ' +
+var eter = '�ter: ' +
 'Os éteres são compostos orgânicos que contêm um átomo de oxigênio ligado a dois grupos alquil (-O-). ' +
 'São usados como solventes e em síntese orgânica.';
 
+var gruposUsados = [];
+var proxPartida = 0;
 var gruposFuncionais = [acidoCarboxilico, acidoMetano, alcool, aldeido, amida, amino, anidridoAcetico, cetona, ester, eter];
 var j = 1;
 
@@ -71,7 +73,6 @@ function ProximaExplicacao(paragrafo, j){
     paragrafo.appendChild(texto);
     if(j == 10)
     {
-        debugger
         document.getElementById('tela').innerText = ''
         var divGameContainer = document.createElement('div');
         divGameContainer.className = 'game-container';
@@ -106,7 +107,6 @@ function ProximaExplicacao(paragrafo, j){
 
 
 function ExibeJogo(){
-    debugger
     var botoes = document.getElementsByClassName('btn');
     for(var i = 0; i < botoes.length; i++){
         botoes[i].style.display = 'none';
@@ -136,7 +136,7 @@ const imageList = [
     'anidritoAcetico.png',
     //'aciMetano.png',
 ];
-
+var arrayAleatorio;
 let imagesDropped = 0;
 const imagesToDrop = 3;
 const functionsToDrop = 3; // Define quantas funções serão mostradas por rodada
@@ -156,7 +156,7 @@ const matchingPairs = [
 ];
 
 // Embaralhe os pares correspondentes
-shuffleArray(matchingPairs);
+//shuffleArray(matchingPairs);
 
 function initializeGame() {
     molecules.forEach(molecule => {
@@ -172,33 +172,30 @@ function initializeGame() {
 }
 
 function startNewRound() {
-// Oculta todas as imagens
+    // Oculta todas as imagens
     molecules.forEach(molecule => {
         molecule.style.display = 'none';
         molecule.classList.remove('dropped');
     });
 
-    // Oculta todas as funções
+    // Oculta todas as fun��es
     functionalGroups.forEach(func => {
         func.style.display = 'none';
         func.classList.remove('dropped');
     });
+    // Embaralhe os pares antes de exibi-los
 
-    // Mostra apenas três funções e suas imagens correspondentes
-    for (let i = imagesDropped; i < imagesDropped + functionsToDrop; i++) {
-        if (matchingPairs[i]) {
-            showFunctionAndImage(i);
-        }
-    }   
-}
-function showFunctionAndImage(index) {
-    const matchingFunction = functionalGroups[index];
-    matchingFunction.style.display = 'block';
-    matchingFunction.classList.add('dropped');
-    const matchingPair = matchingPairs[index];
-    const imageIndex = imageList.indexOf(matchingPair.image);
-    molecules[imageIndex].style.display = 'block';
-    molecules[imageIndex].classList.add('dropped');
+    if(proxPartida == 0){ 
+        array = Array.from(molecules);
+        shuffleArray(array);
+    }
+    shuffledMolecules = Array.from(array);
+    for (let i = proxPartida; i < (proxPartida + 3); i++) {
+        shuffledMolecules[i].style.display = 'inline-block';
+        //console.log(i);
+    }
+    //AleatorizarGrupos(shuffledMolecules);
+    Embaralhar(shuffledMolecules)
 }
 
 function prepareNewRound() {
@@ -233,7 +230,7 @@ function checkMatch(molecule) {
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]; // Troca os elementos de posição
+        [array[i], array[j]] = [array[j], array[i]];
     }
 }
 
@@ -243,7 +240,12 @@ skipButton.addEventListener('click', skipRound);
 function skipRound() {
     // Avance para a próxima rodada, pulando a partida atual.
     imagesDropped += imagesToDrop; // Avance o número de imagens a serem soltas.
-    prepareNewRound();
+    proxPartida += 3;
+    if(proxPartida >= 9){
+        alert("Jogo acabou")
+    }else{        
+        prepareNewRound();
+    }
 }
 
 let functionalGroupBeingDraggedId;
@@ -252,10 +254,66 @@ function dragStart(event) {
     event.dataTransfer.setData('text/plain', '');
 }
 
+function MudarEstado(el, mostrarOuEsconder){ //True para mostrar e False para esconder
+    if(mostrarOuEsconder)
+            document.getElementById(el).style.display = 'inline-block';
+    else
+            document.getElementById(el).style.display = 'none';
+}
+
+function AleatorizarGrupos(array){    
+    for(let i = proxPartida; i < (proxPartida + 3); i++)
+    {
+        debugger
+        let idGrupo = array[i].id
+        console.log(idGrupo);
+        switch (idGrupo) {
+            case '1': 
+                MudarEstado("funcion1", true)             
+              break;
+            case '2':       
+                MudarEstado("funcion2", true)       
+              break;
+            case '3':  
+                MudarEstado("funcion3", true)            
+              break;
+            case '4': 
+                MudarEstado("funcion4", true)             
+              break;
+            case '5':   
+                MudarEstado("funcion5", true)           
+              break;
+            case '6':      
+                MudarEstado("funcion6", true)        
+              break;
+            case '7':     
+                MudarEstado("funcion7", true)         
+              break;
+            case '8':      
+                MudarEstado("funcion8", true)        
+              break;
+            case '9':      
+                MudarEstado("funcion9", true)        
+              break;
+              
+            }
+    }    
+}
+
+function Embaralhar(array){
+        const group1 = array.slice(0, 3);
+        const group2 = array.slice(3, 6);
+        const group3 = array.slice(6);
+
+        // Embaralhe a ordem dentro de cada grupo de 3 divs
+        shuffleArray(group1);
+        shuffleArray(group2);
+        shuffleArray(group3);
+
+        // Combine os dois grupos em uma �nica lista
+        const finalOrder = group1.concat(group2, group3);
+        
+        AleatorizarGrupos(finalOrder);
+    }
+
 window.onload = initializeGame;
-
-
-
-    
-
-
