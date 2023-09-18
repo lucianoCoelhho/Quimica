@@ -1,12 +1,12 @@
-var acidoCarboxilico = 'Ácido Carboxílico: ' +
+var acidoCarboxilico = 'Ýcido Carboxílico: ' +
 'Os ácidos carboxílicos são compostos orgânicos que contêm o grupo funcional carboxila (-COOH).' +
 'São conhecidos por sua acidez e podem formar ligações de hidrogênio, tornando-os importantes em bioquímica.';
 
-var acidoMetano = 'Ácido Metanóico (Fórmico): ' +
+var acidoMetano = 'Ýcido Metanóico (Fórmico): ' +
 'O ácido metanóico, também chamado de ácido fórmico, é o ácido carboxílico mais simples, com a fórmula HCOOH.' +
 'É encontrado em picadas de formigas e pode ser usado na produção de produtos químicos industriais.';
 
-var alcool = 'Álcool: ' +
+var alcool = 'Ýlcool: ' +
 'Os álcoois são compostos que possuem o grupo funcional hidroxila (-OH).' +
 'São amplamente utilizados em produtos de consumo, como bebidas alcoólicas e produtos farmacêuticos.';
 
@@ -42,6 +42,7 @@ var gruposUsados = [];
 var proxPartida = 0;
 var gruposFuncionais = [acidoCarboxilico, acidoMetano, alcool, aldeido, amida, amino, anidridoAcetico, cetona, ester, eter];
 var j = 1;
+var pontos = 0
 
 function ExibeExplicacao(repeticao = false){
     if(repeticao){j = 1}
@@ -220,7 +221,12 @@ function drop(event) {
 function checkMatch(molecule) {
     const groupId = functionalGroupBeingDraggedId;
     const isMatch = molecule.parentElement.classList.contains(groupId);
-    molecule.parentElement.style.backgroundColor = isMatch ? 'green' : 'red';
+    if(isMatch){
+        molecule.parentElement.style.backgroundColor = 'green';
+        pontos += 1;
+    }else{
+        molecule.parentElement.style.backgroundColor = 'red';
+    }
 
 }
 
@@ -232,17 +238,23 @@ function shuffleArray(array) {
 }
 
 const skipButton = document.getElementById('skipButton');
+const resetButton = document.getElementById('reset-button');
 skipButton.addEventListener('click', skipRound);
+resetButton.addEventListener('click', ResetarJogo);
 
 function skipRound() {
     // Avance para a próxima rodada, pulando a partida atual.
     imagesDropped += imagesToDrop; // Avance o número de imagens a serem soltas.
     proxPartida += 3;
     if(proxPartida >= 9){
-        alert("Jogo acabou")
+        alert("Fim de Jogo. Pontos: " + pontos)
     }else{        
         prepareNewRound();
     }
+}
+
+function ResetarJogo() {
+    location.reload();
 }
 
 let functionalGroupBeingDraggedId;
